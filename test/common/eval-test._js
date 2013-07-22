@@ -692,14 +692,14 @@ function twoResults(a, b, cb) {
 
 asyncTest("multiple results", 1, function(_) {
 	evalTest(function f(_) {
-		var results = twoResults('abc', 'def', _);
+		var results = twoResults('abc', 'def', [_]);
 		return results.join('-');
 	}, "abc-def");
 });
 
 asyncTest("multiple results with future", 1, function(_) {
 	evalTest(function f(_) {
-		function wrapper(a, b, _) { return twoResults(a, b, _); }
+		function wrapper(a, b, _) { return twoResults(a, b, [_]); }
 		var results = wrapper('abc', 'def', void 0)(_);
 		return results.join('-');
 	}, "abc-def");

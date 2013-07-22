@@ -682,3 +682,24 @@ asyncTest("octal literal", 1, function __52(_) { var __frame = { name: "__52", l
     evalTest(function f(_) { var __frame = { name: "f", line: 682 }; return __func(_, this, arguments, f, 0, __frame, function __$f() {
         return _(null, 8); });
     }, 8); _(); });});
+
+
+function twoResults(a, b, cb) {
+  setTimeout(function() {
+    cb(null, a, b);
+  }, 0);};
+
+
+asyncTest("multiple results", 1, function __53(_) { var __frame = { name: "__53", line: 693 }; return __func(_, this, arguments, __53, 0, __frame, function __$__53() {
+    evalTest(function f(_) { var results; var __frame = { name: "f", line: 694 }; return __func(_, this, arguments, f, 0, __frame, function __$f() {
+        return twoResults("abc", "def", __cb(_, __frame, 1, 16, function ___(__0, __1) { results = __1;
+          return _(null, results.join("-")); }, true, true)); });
+    }, "abc-def"); _(); });});
+
+
+asyncTest("multiple results with future", 1, function __54(_) { var __frame = { name: "__54", line: 700 }; return __func(_, this, arguments, __54, 0, __frame, function __$__54() {
+    evalTest(function f(_) { var results;
+      function wrapper(a, b, _) { var __frame = { name: "wrapper", line: 702 }; return __func(_, this, arguments, wrapper, 2, __frame, function __$wrapper() { return twoResults(a, b, __cb(_, __frame, 0, 37, _, true, true)); }); }; var __frame = { name: "f", line: 701 }; return __func(_, this, arguments, f, 0, __frame, function __$f() {
+        return wrapper("abc", "def", void 0)(__cb(_, __frame, 2, 16, function ___(__0, __1) { results = __1;
+          return _(null, results.join("-")); }, true)); });
+    }, "abc-def"); _(); });});
